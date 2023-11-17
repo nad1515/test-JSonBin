@@ -69,7 +69,7 @@ console.log("script chargé");
 // let formJson;
 
 const secretKey = "$2a$10$HP1iQUMD/WXoB2AoJBE7PecR.WswLXdsh7S0cpwimOymzoeqvqz1a";
-const Bin_ID = "6556210112a5d376599a541e";
+const Bin_ID = "65534c5354105e766fcfd262";
 const urlApi = "https://api.jsonbin.io/v3";
 
 let dataJSonBIn;
@@ -88,12 +88,15 @@ async function getJsonBin(){
      dataJSonBIn = await res.json();
       console.log(dataJSonBIn);
     }
- tableau.push(dataJSonBIn)
+  dataJSonBIn.record.forEach((record)=>{
+   tableau.push(record)
+ });
  console.log(tableau);
+
 
  let formJson;
 async function testJsonBin(){
-         const res = await fetch(`${urlApi}/b/`, {
+         const res = await fetch(`${urlApi}/b/65534c5354105e766fcfd262`, {
          method : 'PUT',
          headers : {
             'Content-Type': 'application/json',
@@ -102,7 +105,12 @@ async function testJsonBin(){
          },
          body: JSON.stringify(tableau)
          })
-    }
+         
+  tableau.push(formJson);
+  console.log(tableau);
+}
+
+    
 
     let form = document.querySelector("form");
     form.addEventListener("submit", function(event){
@@ -114,18 +122,16 @@ async function testJsonBin(){
          tableau.push(formJson);
          console.log(tableau);
          testJsonBin()
+
+
     })
+
     let delet = document.querySelector("#efface");
     delet.addEventListener("click", function(){
          document.querySelectorAll("input").forEach(item =>{
             item.value = "";
          })
     })
-
-  tableau.push(formJson);
-  console.log(tableau);
-
-
 
 
 ///............stok la methode post....................
